@@ -20,7 +20,7 @@ public class ScanToken {
     private String  lexeme;
     private int     CurrentState;
     public  int Line=0;
-    private TokenDictionary Dictionary=new TokenDictionary();
+   
     
     
     
@@ -36,52 +36,52 @@ public class ScanToken {
         this.fine=false;
         this.lexeme="";
         this.CurrentState=1;
-        Dictionary.put("BluePrint", "Class");
-        Dictionary.put("InNMN", "Inheritance");
-        Dictionary.put("ERo", "Condition");
-        Dictionary.put("Plow", "Condition");
-        Dictionary.put("IPOL", "Integer");
-        Dictionary.put("SiPOsL", "SInteger");
-        Dictionary.put("Grp", "Character");
-        Dictionary.put("Folp", "String");
-        Dictionary.put("Shrk", "Float");
-        Dictionary.put("Derp", "SFloat");
-        Dictionary.put("EQl", "Void");
-        Dictionary.put("Bplo", "Boolean");
-        Dictionary.put("Spt", "stop");
-        Dictionary.put("DpiWhen", "Loop");
-        Dictionary.put("LPwhen", "Loop");
-        Dictionary.put("Retu", "Return");
-        Dictionary.put("ZQe", "Switch");
-        Dictionary.put("KLO", "Switch");
-        Dictionary.put("Pero", "Stat Statement");
-        Dictionary.put("Fine", "End Statement");
-        Dictionary.put("+", "Arithmetic Operation");
-        Dictionary.put("-", "Arithmetic Operation");
-        Dictionary.put("*", "Arithmetic Operation");
-        Dictionary.put("/", "Arithmetic Operation");
-        Dictionary.put("&&", "Logic operators ");
-        Dictionary.put("||", "Logic operators ");
-        Dictionary.put("~", "Logic operators ");
-        Dictionary.put("==", "relational operators");
-        Dictionary.put("<=", "relational operators");
-        Dictionary.put(">=", "relational operators");
-        Dictionary.put("!=", "relational operators");
-        Dictionary.put(">", "relational operators");
-        Dictionary.put("<", "relational operators");
-        Dictionary.put("=", "Assignment operator");
-        Dictionary.put(".", "Access Operator");
-        Dictionary.put("}", "Braces");
-        Dictionary.put("{", "Braces");
-        Dictionary.put("]", "Braces");
-        Dictionary.put("[", "Braces");
-        Dictionary.put("(", "Braces");
-        Dictionary.put(")", "Braces");
-        Dictionary.put("\"", "Quotation Mark");
-        Dictionary.put("\'", "Quotation Mark");
-        Dictionary.put(",", "comma");
-        Dictionary.put(";", "semicolon");
-        Dictionary.put("Having", "Inclusion");
+        TokenDictionary.put("BluePrint", "Class");
+        TokenDictionary.put("InNMN", "Inheritance");
+        TokenDictionary.put("ERo", "Condition");
+        TokenDictionary.put("Plow", "Condition");
+        TokenDictionary.put("IPOL", "Integer");
+        TokenDictionary.put("SiPOsL", "SInteger");
+        TokenDictionary.put("Grp", "Character");
+        TokenDictionary.put("Folp", "String");
+        TokenDictionary.put("Shrk", "Float");
+        TokenDictionary.put("Derp", "SFloat");
+        TokenDictionary.put("EQl", "Void");
+        TokenDictionary.put("Bplo", "Boolean");
+        TokenDictionary.put("Spt", "stop");
+        TokenDictionary.put("DpiWhen", "Loop");
+        TokenDictionary.put("LPwhen", "Loop");
+        TokenDictionary.put("Retu", "Return");
+        TokenDictionary.put("ZQe", "Switch");
+        TokenDictionary.put("KLO", "Switch");
+        TokenDictionary.put("Pero", "Stat Statement");
+        TokenDictionary.put("Fine", "End Statement");
+        TokenDictionary.put("+", "Arithmetic Operation");
+        TokenDictionary.put("-", "Arithmetic Operation");
+        TokenDictionary.put("*", "Arithmetic Operation");
+        TokenDictionary.put("/", "Arithmetic Operation");
+        TokenDictionary.put("&&", "Logic operators ");
+        TokenDictionary.put("||", "Logic operators ");
+        TokenDictionary.put("~", "Logic operators ");
+        TokenDictionary.put("==", "relational operators");
+        TokenDictionary.put("<=", "relational operators");
+        TokenDictionary.put(">=", "relational operators");
+        TokenDictionary.put("!=", "relational operators");
+        TokenDictionary.put(">", "relational operators");
+        TokenDictionary.put("<", "relational operators");
+        TokenDictionary.put("=", "Assignment operator");
+        TokenDictionary.put(".", "Access Operator");
+        TokenDictionary.put("}", "Braces");
+        TokenDictionary.put("{", "Braces");
+        TokenDictionary.put("]", "Braces");
+        TokenDictionary.put("[", "Braces");
+        TokenDictionary.put("(", "Braces");
+        TokenDictionary.put(")", "Braces");
+        TokenDictionary.put("\"", "Quotation Mark");
+        TokenDictionary.put("\'", "Quotation Mark");
+        TokenDictionary.put(",", "comma");
+        TokenDictionary.put(";", "semicolon");
+        TokenDictionary.put("Having", "Inclusion");
     }
     
     
@@ -100,7 +100,7 @@ public class ScanToken {
     
     public String getToken()
     {
-         String Token = Dictionary.get(lexeme);
+         String Token = TokenDictionary.get(lexeme);
          if(Token == null)
          {
              char ch=lexeme.charAt(0);
@@ -118,7 +118,7 @@ public class ScanToken {
     
     public String getReturnToken()
     {
-         String Token = Dictionary.get(lexeme);
+         String Token = TokenDictionary.get(lexeme);
          if(Token == null)
          {
              char ch=lexeme.charAt(0);

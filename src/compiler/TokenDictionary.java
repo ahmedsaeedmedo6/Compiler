@@ -12,10 +12,10 @@ import java.util.ArrayList;
  * @author lenovo G50-80
  */
 public class TokenDictionary  {
-    private ArrayList<Token> Dictionary=new ArrayList<>();
+    private static ArrayList<Token> Dictionary=new ArrayList<>();
     
     
-    private boolean equal(String str1,String str2)
+    private static boolean equal(String str1,String str2)
     {
         if(str1.length()!=str2.length())
             return false;
@@ -33,12 +33,12 @@ public class TokenDictionary  {
         
     }
     
-    public void put(String key , String value)
+    public static void put(String key , String value)
     {
         boolean found=false;
         for(int i=0;i<Dictionary.size();i++)
         {
-            if(this.equal(key, Dictionary.get(i).key))
+            if(TokenDictionary.equal(key, Dictionary.get(i).key))
             {
                 found=true;
             }
@@ -53,21 +53,29 @@ public class TokenDictionary  {
     }
     
     
-    public String get(String key)
+    public static String get(String key)
     {
         for(int i=0;i<Dictionary.size();i++)
         {
-            if(this.equal(key, Dictionary.get(i).key))
+            if(TokenDictionary.equal(key, Dictionary.get(i).key))
             {
                 return Dictionary.get(i).value;
             }
         }
         return null;
     }
+    public static ArrayList<String> getAll()
+    {
+        ArrayList<String> tokens=new ArrayList<>();
+        TokenDictionary.Dictionary.forEach((token) -> {
+            if(token.key.length()>2)
+                tokens.add(token.key);
+        });
+       return tokens;
+    }
             
             
-            
-    private class Token
+    private static class Token
     {
         public String key;
         public String value;
