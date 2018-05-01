@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Editor;
 
 import compiler.LexicalAnalysis;
@@ -19,14 +14,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -114,30 +107,46 @@ public class Editor extends javax.swing.JFrame {
         public SuggestionPanel(JTextArea textarea, int position, String subWord, Point location) {
             this.insertionPosition = position;
             this.subWord = subWord;
-            popupMenu = new JPopupMenu();
-            popupMenu.removeAll();
-            popupMenu.setOpaque(true);
-            popupMenu.setBorder(BorderFactory.createLoweredBevelBorder());
-            popupMenu.add(list = createSuggestionList(position, subWord), BorderLayout.CENTER);
-            popupMenu.show(textarea, location.x, textarea.getBaseline(0, 0) + location.y);
+            list=createSuggestionList(position, subWord);
+            if(list!=null)
+            {
+                popupMenu = new JPopupMenu();
+                popupMenu.removeAll();
+                popupMenu.setOpaque(true);
+                popupMenu.setBorder(BorderFactory.createLoweredBevelBorder());
+                popupMenu.add(list, BorderLayout.CENTER);
+                popupMenu.show(textarea, location.x, textarea.getBaseline(0, 0) + location.y);  
+            }
+            
         }
 
         public void hide() {
-            popupMenu.setVisible(false);
+            if(popupMenu!=null)
+                popupMenu.setVisible(false);
             if (suggestion == this) {
                 suggestion = null;
             }
         }
 
         private JList createSuggestionList(final int position, final String subWord) {
-            ArrayList<String> suggestionsTokens=TokenDictionary.getAll();
-            System.out.println(suggestionsTokens.size());
+            ArrayList<String> suggestionsTokens=new ArrayList<>();
+            for(String token :TokenDictionary.getAll())
+            {
+                System.out.println(token);
+                if(token.startsWith(subWord))
+                {
+                    suggestionsTokens.add(token);
+                }
+            }
             Object[] data = new Object[suggestionsTokens.size()];
             for (int i = 0; i < data.length; i++) {
                 data[i] = suggestionsTokens.get(i);
                 
             }
-            
+            if(suggestionsTokens.isEmpty())
+            {
+                return null;
+            }
             JList list = new JList(data);
             //list.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
             list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -154,6 +163,10 @@ public class Editor extends javax.swing.JFrame {
         }
 
         public boolean insertSelection() {
+            if(list==null)
+            {
+                return false;
+            }
             if (list.getSelectedValue() != null) {
                 try {
                     final String selectedSuggestion = ((String) list.getSelectedValue()).substring(subWord.length());
@@ -227,7 +240,7 @@ public class Editor extends javax.swing.JFrame {
             return;
         }
         final String subWord = text.substring(start, position);
-        if (subWord.length() < 2) {
+        if (subWord.length() < 1) {
             return;
         }
         suggestion = new SuggestionPanel(EditorText, position, subWord, location);
@@ -263,6 +276,7 @@ public class Editor extends javax.swing.JFrame {
    // End Auto complete
     
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -272,79 +286,92 @@ public class Editor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panalManufiles = new javax.swing.JPanel();
-        panalManuRun = new javax.swing.JPanel();
-        panalEditor = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
         panalScrollEditor = new javax.swing.JScrollPane();
         EditorText = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panalManufiles.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout panalManufilesLayout = new javax.swing.GroupLayout(panalManufiles);
-        panalManufiles.setLayout(panalManufilesLayout);
-        panalManufilesLayout.setHorizontalGroup(
-            panalManufilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        panalManufilesLayout.setVerticalGroup(
-            panalManufilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 28, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 46, Short.MAX_VALUE)
         );
 
-        panalManuRun.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout panalManuRunLayout = new javax.swing.GroupLayout(panalManuRun);
-        panalManuRun.setLayout(panalManuRunLayout);
-        panalManuRunLayout.setHorizontalGroup(
-            panalManuRunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        panalManuRunLayout.setVerticalGroup(
-            panalManuRunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 58, Short.MAX_VALUE)
         );
 
-        panalEditor.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        panalScrollEditor.setBackground(new java.awt.Color(51, 153, 255));
-        panalScrollEditor.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 255)));
-        panalScrollEditor.setForeground(new java.awt.Color(255, 255, 255));
+        panalScrollEditor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255), 3));
 
         EditorText.setColumns(20);
         EditorText.setRows(5);
         panalScrollEditor.setViewportView(EditorText);
 
-        javax.swing.GroupLayout panalEditorLayout = new javax.swing.GroupLayout(panalEditor);
-        panalEditor.setLayout(panalEditorLayout);
-        panalEditorLayout.setHorizontalGroup(
-            panalEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panalScrollEditor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1151, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panalScrollEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 1343, Short.MAX_VALUE)
         );
-        panalEditorLayout.setVerticalGroup(
-            panalEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panalEditorLayout.createSequentialGroup()
-                .addComponent(panalScrollEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
-                .addContainerGap())
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(panalScrollEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panalManufiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panalManuRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panalEditor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panalManufiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panalManuRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panalEditor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -388,7 +415,9 @@ public class Editor extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-                new Editor().setVisible(true);
+               Editor ed= new Editor();
+               ed.setVisible(true);
+               ed.setExtendedState( ed.getExtendedState()|JFrame.MAXIMIZED_BOTH );
             }
         });
     }
@@ -398,12 +427,14 @@ public class Editor extends javax.swing.JFrame {
     public MyDocumentListener() {
     }
     char newline = '\n';
+    HighlightText highlight=new HighlightText(Color.RED);
+    
     
     
 
             public void insertUpdate(DocumentEvent e) {
                 String text= EditorText.getText();
-                    updatelines(calculatelines(text));
+                updatelines(calculatelines(text));
                     
                     
                     
@@ -434,9 +465,13 @@ public class Editor extends javax.swing.JFrame {
         {
             lines+="   "+(i+1)+"   \n";
         }
+        
         lineText.setText(lines);
-
-       
+        String[] strArr=new String[3];
+        strArr[0]=" 1 ";
+        strArr[1]=" 2 ";
+        strArr[2]=" 3 ";
+        highlight.highLight(lineText,strArr);
     }
 }
     
@@ -448,9 +483,10 @@ public class Editor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea EditorText;
-    private javax.swing.JPanel panalEditor;
-    private javax.swing.JPanel panalManuRun;
-    private javax.swing.JPanel panalManufiles;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane panalScrollEditor;
     // End of variables declaration//GEN-END:variables
 }
